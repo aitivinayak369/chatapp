@@ -5,12 +5,7 @@ socket.on('connect',function(){
 socket.on('disconnect',function(){
     console.log('disconnected from server');
 })
-socket.on('newEmail',function(email)
+socket.on('newMessage',function(message)
 {
-    console.log('new email created',email);
-})
-socket.emit('createEmail',{
-    Name:"bill gates",
-    Age:"66",
-    
+    console.log('Caught one message',message);
 })

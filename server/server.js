@@ -15,8 +15,13 @@ IO.on('connection',(socket)=>{
         Sub:"Welcome to google as our creative software developer"
     })
     console.log('connected to server');
-    socket.on('createEmail',(cmail)=>{
-        console.log(cmail);
+    socket.on('createMessage',(message)=>{
+        console.log('message',message);
+        IO.emit('newMessage',{
+            form:message.from,
+            text:message.text,
+            createdAt:new Date().getTime()
+        })
     })
 })
 server.listen(port,()=>{
