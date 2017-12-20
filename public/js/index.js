@@ -7,5 +7,12 @@ socket.on('disconnect',function(){
 })
 socket.on('newMessage',function(message)
 {
-    console.log('Caught one message',message);
+    console.log('Caught one message all',message);
 })
+socket.emit('createMessage',{from:"vinaysk",text:"hey "});
+
+socket.on('createMessage',function(message){
+    console.log(message)
+
+});
+

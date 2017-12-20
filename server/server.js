@@ -2,6 +2,7 @@ var express =require('express');
 var http=require('http');
 var socketIO=require('socket.io');
 var app=express();
+var {generateMessage}=require('./utils/message.js')
 var server=http.createServer(app);
 var IO=socketIO(server);
 const path=require('path');
@@ -15,13 +16,11 @@ IO.on('connection',(socket)=>{
         Sub:"Welcome to google as our creative software developer"
     })
     console.log('connected to server');
+    socket.emit('createMessage',generateMessage('vnayak','hey'));
+    socket.broadcast.emit('createMessage',generateMessage('vnayak','hey'));
     socket.on('createMessage',(message)=>{
-        console.log('message',message);
-        IO.emit('newMessage',{
-            form:message.from,
-            text:message.text,
-            createdAt:new Date().getTime()
-        })
+        console.log('message',generateMessage(message.from,message.text));
+        IO.emit('newMessage',generateMessage(message.from,message.text))
     })
 })
 server.listen(port,()=>{
